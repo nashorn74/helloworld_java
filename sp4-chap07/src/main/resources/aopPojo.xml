@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<bean id="executeTimeAspect" class="aspect.ExecuteTimeAspect"/>
+	<aop:config>
+		<aop:aspect id="measureAspect" ref="executeTimeAspect">
+			<aop:pointcut id="publicMethod"
+				expression="execution(public * chap07..*(..))" />
+			<aop:around pointcut-ref="publicMethod" method="measure"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="implementCalculator" class="chap07.ImplementCalculator"/>
+	<bean id="recursiveCalculator" class="chap07.RecursiveCalculator"/>
+</beans>
